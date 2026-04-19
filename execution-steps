@@ -1,0 +1,300 @@
+Microsoft Windows [Version 10.0.26200.8246]
+(c) Microsoft Corporation. All rights reserved.
+
+Steps::1 C:\Workspace2\docker\spring-boot-postgresql-docker-swarmp>mvn clean package -DskipTests and then "docker swarm init"
+Steps::2 C:\Workspace2\docker\spring-boot-postgresql-docker-swarmp>docker build -t springboot-swarm-app:1.0 .
+Steps::3 C:\Workspace2\docker\spring-boot-postgresql-docker-swarmp>docker stack deploy -c docker-stack.yml spboot-postgresql-dswarmp
+Since --detach=false was not specified, tasks will be created in the background.
+In a future release, --detach=false will become the default.
+Creating service spboot-postgresql-dswarmp_app
+Updating service spboot-postgresql-dswarmp_db (id: bwjititt934ojsbz69ax43vw5)
+
+=>You can check service logs:: C:\Workspace2\docker\spring-boot-postgresql-docker-swarmp>docker service logs spboot-postgresql-dswarmp_app
+
+ Steps::4 C:\Workspace2\docker\spring-boot-postgresql-docker-compose>docker service ls
+ID             NAME                            MODE         REPLICAS   IMAGE                      PORTS
+mqelwz6cyvgo   spboot-postgresql-dswarmp_app   replicated   3/3        springboot-swarm-app:1.0   *:3458->2426/tcp
+bwjititt934o   spboot-postgresql-dswarmp_db    replicated   1/1        postgres:15                *:5432->5432/tc
+
+ Step::5 C:\Workspace2\docker\spring-boot-postgresql-docker-swarmp>docker ps
+CONTAINER ID   IMAGE                      COMMAND                  CREATED             STATUS             PORTS      NAMES
+042b0e7a85ba   springboot-swarm-app:1.0   "java -jar spboot-po…"   6 minutes ago       Up 6 minutes                  spboot-postgresql-dswarmp_app.1.jy0fsw313c9nf9tcc48u7jfec
+d0a8e64e5d96   springboot-swarm-app:1.0   "java -jar spboot-po…"   6 minutes ago       Up 6 minutes                  spboot-postgresql-dswarmp_app.3.53hcwqbmmngik2g9cd988ql07
+57c5694e9608   springboot-swarm-app:1.0   "java -jar spboot-po…"   6 minutes ago       Up 6 minutes                  spboot-postgresql-dswarmp_app.2.wzhvei21phk0k2kl2h7mcr9jo
+07ecd04008b6   postgres:15                "docker-entrypoint.s…"   About an hour ago   Up About an hour   5432/tcp   spboot-postgresql-dswarmp_db.1.8m0fhsyoo09njrrytl78d1w47
+
+ Step::6 C:\Workspace2\docker\spring-boot-postgresql-docker-swarmp>docker exec -it spboot-postgresql-dswarmp_db.1.8m0fhsyoo09njrrytl78d1w47 psql -U postgres
+Steps::7 Check databases: \l
+Step::8 Connect DB: \c docker-databases
+Step::9 Check table: docker-databases=# \dt
+Step::10 Describe table: docker-databases=# \d
+Step::11 docker-databases=# select * from employee
+Step::12 To exit db:: docker-databases=# \9
+Step::13 C:\Workspace2\docker\spring-boot-postgresql-docker-compose>exit
+
+To Stop Docker Swarmp: Remove Stacks: Use the stack removal command to stop all services in a stack:
+docker stack rm spboot-postgresql-dswarmp
+
+C:\Workspace2\docker\spring-boot-postgresql-docker-swarmp>docker stack ls
+NAME                        SERVICES
+spboot-postgresql-dswarmp   2
+
+C:\Workspace2\docker\spring-boot-postgresql-docker-swarmp>docker stack rm spboot-postgresql-dswarmp
+Removing service spboot-postgresql-dswarmp_app
+Removing service spboot-postgresql-dswarmp_db
+Removing network spboot-postgresql-dswarmp_default
+
+Remove Services: If you created individual services, delete them using:
+docker service rm spboot-postgresql-dswarmp_app
+========================================================
+
+C:\Workspace2\docker\spring-boot-postgresql-docker-swarmp>mvn clean package -DskipTests
+[INFO] Scanning for projects...
+[INFO]
+[INFO] -------< com.dockerswarmp:spring-boot-postgresql-docker-swarmp >--------
+[INFO] Building  0.0.1-SNAPSHOT
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO]
+[INFO] --- clean:3.4.1:clean (default-clean) @ spring-boot-postgresql-docker-swarmp ---
+[INFO] Deleting C:\Workspace2\docker\spring-boot-postgresql-docker-swarmp\target
+[INFO]
+[INFO] --- resources:3.3.1:resources (default-resources) @ spring-boot-postgresql-docker-swarmp ---
+[INFO] Copying 2 resources from src\main\resources to target\classes
+[INFO] Copying 0 resource from src\main\resources to target\classes
+[INFO]
+[INFO] --- compiler:3.14.1:compile (default-compile) @ spring-boot-postgresql-docker-swarmp ---
+[INFO] Recompiling the module because of changed source code.
+[INFO] Compiling 5 source files with javac [debug parameters release 17] to target\classes
+[INFO]
+[INFO] --- resources:3.3.1:testResources (default-testResources) @ spring-boot-postgresql-docker-swarmp ---
+[INFO] skip non existing resourceDirectory C:\Workspace2\docker\spring-boot-postgresql-docker-swarmp\src\test\resources
+[INFO]
+[INFO] --- compiler:3.14.1:testCompile (default-testCompile) @ spring-boot-postgresql-docker-swarmp ---
+[INFO] Recompiling the module because of changed dependency.
+[INFO] Compiling 1 source file with javac [debug parameters release 17] to target\test-classes
+[INFO]
+[INFO] --- surefire:3.5.5:test (default-test) @ spring-boot-postgresql-docker-swarmp ---
+[INFO] Tests are skipped.
+[INFO]
+[INFO] --- jar:3.4.2:jar (default-jar) @ spring-boot-postgresql-docker-swarmp ---
+[INFO] Building jar: C:\Workspace2\docker\spring-boot-postgresql-docker-swarmp\target\spring-boot-postgresql-docker-swarmp-0.0.1-SNAPSHOT.jar
+[INFO]
+[INFO] --- spring-boot:3.5.13:repackage (repackage) @ spring-boot-postgresql-docker-swarmp ---
+[INFO] Replacing main artifact C:\Workspace2\docker\spring-boot-postgresql-docker-swarmp\target\spring-boot-postgresql-docker-swarmp-0.0.1-SNAPSHOT.jar with repackaged archive, adding nested dependencies in BOOT-INF/.
+[INFO] The original artifact has been renamed to C:\Workspace2\docker\spring-boot-postgresql-docker-swarmp\target\spring-boot-postgresql-docker-swarmp-0.0.1-SNAPSHOT.jar.original
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  3.661 s
+[INFO] Finished at: 2026-04-19T17:24:26+05:30
+[INFO] ------------------------------------------------------------------------
+
+C:\Workspace2\docker\spring-boot-postgresql-docker-swarmp>docker build -t springboot-swarm-app:1.0 .
+[+] Building 6.0s (8/8) FINISHED                                                                   docker:desktop-linux
+ => [internal] load build definition from Dockerfile                                                               0.0s
+ => => transferring dockerfile: 366B                                                                               0.0s
+ => [internal] load metadata for docker.io/library/eclipse-temurin:17-jdk-jammy                                    1.8s
+ => [internal] load .dockerignore                                                                                  0.0s
+ => => transferring context: 2B                                                                                    0.0s
+ => [1/3] FROM docker.io/library/eclipse-temurin:17-jdk-jammy@sha256:978ed38b7785312f7761bee5e24cfcd7ac2fe466c5f0  0.0s
+ => => resolve docker.io/library/eclipse-temurin:17-jdk-jammy@sha256:978ed38b7785312f7761bee5e24cfcd7ac2fe466c5f0  0.0s
+ => [internal] load build context                                                                                  2.1s
+ => => transferring context: 52.88MB                                                                               2.0s
+ => CACHED [2/3] WORKDIR /app                                                                                      0.0s
+ => [3/3] COPY target/* spboot-postgresql-docker-swarmp.jar                                                        0.2s
+ => exporting to image                                                                                             1.7s
+ => => exporting layers                                                                                            1.3s
+ => => exporting manifest sha256:5ae6af69c43f4595e74018dd133465a1bbbdb03a90dd688c6d46098feaba6edf                  0.0s
+ => => exporting config sha256:4ac74a8fe350b327c8929909b5f1d873df18b7fc73dc1f46751dd5456ae56940                    0.0s
+ => => exporting attestation manifest sha256:47146b69fd83028ae0aa23b6a9eb2a2287bcfd60ce057abe058c24244ff7c823      0.0s
+ => => exporting manifest list sha256:3bb719969c37e6babde5ef6530dc681424cef083f6274088725f7053f41ff363             0.0s
+ => => naming to docker.io/library/springboot-swarm-app:1.0                                                        0.0s
+ => => unpacking to docker.io/library/springboot-swarm-app:1.0                                                     0.3s
+
+C:\Workspace2\docker\spring-boot-postgresql-docker-swarmp>docker swarm init
+Swarm initialized: current node (u4dor2td0zkk8liup3ruhceic) is now a manager.
+
+To add a worker to this swarm, run the following command:
+
+    docker swarm join --token SWMTKN-1-4l6comsj66ezk7u0fa077atgtnvbsvh4eu1niglwopfhenm1m9-1gwiem2zryut2hzj9b2ib3qli 192.168.65.3:2377
+
+To add a manager to this swarm, run 'docker swarm join-token manager' and follow the instructions.
+
+C:\Workspace2\docker\spring-boot-postgresql-docker-swarmp>docker stack deploy -c docker-stack.yml spboot-postgresql-dswarmp
+Since --detach=false was not specified, tasks will be created in the background.
+In a future release, --detach=false will become the default.
+Creating network spboot-postgresql-dswarmp_default
+Creating service spboot-postgresql-dswarmp_app
+Creating service spboot-postgresql-dswarmp_db
+
+C:\Workspace2\docker\spring-boot-postgresql-docker-swarmp>docker service ls
+ID             NAME                            MODE         REPLICAS   IMAGE                      PORTS
+vjrq881d1yby   spboot-postgresql-dswarmp_app   replicated   0/3        springboot-swarm-app:1.0   *:3458->2426/tcp
+bwjititt934o   spboot-postgresql-dswarmp_db    replicated   1/1        postgres:15                *:5432->5432/tcp
+
+C:\Workspace2\docker\spring-boot-postgresql-docker-swarmp>docker service scale spboot-postgresql-dswarmp_app=3
+spboot-postgresql-dswarmp_app scaled to 3
+overall progress: 0 out of 3 tasks
+1/3: ready     [======================================>            ]
+2/3: starting  [============================================>      ]
+3/3: ready     [======================================>            ]
+============================================================================
+C:\Users\niran>docker ps
+CONTAINER ID   IMAGE                      COMMAND                  CREATED         STATUS                  PORTS      NAMES
+9db0758a8802   springboot-swarm-app:1.0   "java -jar spboot-po…"   4 seconds ago   Up Less than a second              spboot-postgresql-dswarmp_app.1.fsavzpq9ck9z5bb9a74x5jzww
+07ecd04008b6   postgres:15                "docker-entrypoint.s…"   8 minutes ago   Up 8 minutes            5432/tcp   spboot-postgresql-dswarmp_db.1.8m0fhsyoo09njrrytl78d1w47
+
+C:\Users\niran>docker service ps
+docker: 'docker service ps' requires at least 1 argument
+
+Usage:  docker service ps [OPTIONS] SERVICE [SERVICE...]
+
+See 'docker service ps --help' for more information
+
+C:\Users\niran>docker service ps spboot-postgresql-dswarmp_app
+ID             NAME                                  IMAGE                      NODE             DESIRED STATE   CURRENT STATE                      ERROR                       PORTS
+gsx5eoddkyus   spboot-postgresql-dswarmp_app.1       springboot-swarm-app:1.0   docker-desktop   Ready           Ready less than a second ago               
+025fhk6gcjpv    \_ spboot-postgresql-dswarmp_app.1   springboot-swarm-app:1.0   docker-desktop   Shutdown        Failed 2 seconds ago               "task: non-zero exit (1)"
+s7p81ycnamwk    \_ spboot-postgresql-dswarmp_app.1   springboot-swarm-app:1.0   docker-desktop   Shutdown        Failed 9 seconds ago               "task: non-zero exit (1)"
+ax31qw5nxeax    \_ spboot-postgresql-dswarmp_app.1   springboot-swarm-app:1.0   docker-desktop   Shutdown        Failed 15 seconds ago              "task: non-zero exit (1)"
+yvtjn30paoh3    \_ spboot-postgresql-dswarmp_app.1   springboot-swarm-app:1.0   docker-desktop   Shutdown        Failed 21 seconds ago              "task: non-zero exit (1)"
+mvzavi8491ym   spboot-postgresql-dswarmp_app.2       springboot-swarm-app:1.0   docker-desktop   Ready           Ready 2 seconds ago                        
+qmszm21k5t15    \_ spboot-postgresql-dswarmp_app.2   springboot-swarm-app:1.0   docker-desktop   Shutdown        Failed 4 seconds ago               "task: non-zero exit (1)"
+rk9xx1w3loxh    \_ spboot-postgresql-dswarmp_app.2   springboot-swarm-app:1.0   docker-desktop   Shutdown        Failed 11 seconds ago              "task: non-zero exit (1)"
+jp5edjajxco5    \_ spboot-postgresql-dswarmp_app.2   springboot-swarm-app:1.0   docker-desktop   Shutdown        Failed 17 seconds ago              "task: non-zero exit (1)"
+abbsmkpf77z4    \_ spboot-postgresql-dswarmp_app.2   springboot-swarm-app:1.0   docker-desktop   Shutdown        Failed 24 seconds ago              "task: non-zero exit (1)"
+psj7zx4muhrl   spboot-postgresql-dswarmp_app.3       springboot-swarm-app:1.0   docker-desktop   Ready           Preparing less than a second ago           
+gbl5asqlzbnz    \_ spboot-postgresql-dswarmp_app.3   springboot-swarm-app:1.0   docker-desktop   Shutdown        Failed less than a second ago      "task: non-zero exit (1)"
+cz1n99paiq2h    \_ spboot-postgresql-dswarmp_app.3   springboot-swarm-app:1.0   docker-desktop   Shutdown        Failed 7 seconds ago               "task: non-zero exit (1)"
+o01y76s9cdua    \_ spboot-postgresql-dswarmp_app.3   springboot-swarm-app:1.0   docker-desktop   Shutdown        Failed 13 seconds ago              "task: non-zero exit (1)"
+qus0nj21k7kh    \_ spboot-postgresql-dswarmp_app.3   springboot-swarm-app:1.0   docker-desktop   Shutdown        Failed 20 seconds ago              "task: non-zero exit (1)"
+
+C:\Users\niran>docker service logs spboot-postgresql-dswarmp_app
+spboot-postgresql-dswarmp_app.2.supzp36zazh6@docker-desktop    | Error: Invalid or corrupt jarfile spboot-postgresql-docker-swarmp.jar
+spboot-postgresql-dswarmp_app.3.qlx5oepop7v3@docker-desktop    | Error: Invalid or corrupt jarfile spboot-postgresql-docker-swarmp.jar
+spboot-postgresql-dswarmp_app.3.cz1n99paiq2h@docker-desktop    | Error: Invalid or corrupt jarfile spboot-postgresql-docker-swarmp.jar
+spboot-postgresql-dswarmp_app.1.025fhk6gcjpv@docker-desktop    | Error: Invalid or corrupt jarfile spboot-postgresql-docker-swarmp.jar
+spboot-postgresql-dswarmp_app.2.rk9xx1w3loxh@docker-desktop    | Error: Invalid or corrupt jarfile spboot-postgresql-docker-swarmp.jar
+spboot-postgresql-dswarmp_app.2.mvzavi8491ym@docker-desktop    | Error: Invalid or corrupt jarfile spboot-postgresql-docker-swarmp.jar
+spboot-postgresql-dswarmp_app.3.gbl5asqlzbnz@docker-desktop    | Error: Invalid or corrupt jarfile spboot-postgresql-docker-swarmp.jar
+spboot-postgresql-dswarmp_app.1.gsx5eoddkyus@docker-desktop    | Error: Invalid or corrupt jarfile spboot-postgresql-docker-swarmp.jar
+spboot-postgresql-dswarmp_app.3.psj7zx4muhrl@docker-desktop    | Error: Invalid or corrupt jarfile spboot-postgresql-docker-swarmp.jar
+spboot-postgresql-dswarmp_app.2.qmszm21k5t15@docker-desktop    | Error: Invalid or corrupt jarfile spboot-postgresql-docker-swarmp.jar
+spboot-postgresql-dswarmp_app.1.s7p81ycnamwk@docker-desktop    | Error: Invalid or corrupt jarfile spboot-postgresql-docker-swarmp.jar
+spboot-postgresql-dswarmp_app.1.pgtu9x6sl3g3@docker-desktop    | Error: Invalid or corrupt jarfile spboot-postgresql-docker-swarmp.jar
+
+C:\Users\niran>docker service ls
+ID             NAME                            MODE         REPLICAS   IMAGE                      PORTS
+vjrq881d1yby   spboot-postgresql-dswarmp_app   replicated   0/3        springboot-swarm-app:1.0   *:3458->2426/tcp
+bwjititt934o   spboot-postgresql-dswarmp_db    replicated   1/1        postgres:15                *:5432->5432/tcp
+
+C:\Users\niran>docker images
+                                                                                                                                        i Info →   U  In Use
+IMAGE                                              ID             DISK USAGE   CONTENT SIZE   EXTRA
+grafana/grafana:latest                             ba93c9d192e5        995MB          211MB
+jenkins/jenkins:lts                                d1ea795c6fac        811MB          291MB
+jenkins/jenkins:lts-jdk17                          60b80d3602d6        789MB          282MB    U
+karapada-school-app:latest                         4cb73bfccece        739MB          248MB
+karapada-school:latest                             db1533a52c05        739MB          248MB    U
+mariadb:11.8                                       31c1aa20ba2d        465MB          111MB    U
+maven:3.9.9-eclipse-temurin-17                     f58d59b6273e        759MB          234MB
+postgres:15                                        3e43515057e1        633MB          164MB    U
+postgres:18                                        1090bc3a8ccf        649MB          168MB
+postgres:latest                                    1090bc3a8ccf        649MB          168MB
+prom/prometheus:latest                             1f0f50f06aca        503MB          134MB
+spboot-postgresql-dcompose:latest                  94ed698cdda9        730MB          243MB
+spring-boot-postgresql-docker-compose-app:latest   377f73e011b8        730MB          243MB    U
+springboot-swarm-app:1.0                           3bb719969c37        731MB          243MB    U
+
+C:\Users\niran>
+
+=====================================================
+C:\Workspace2\docker\spring-boot-postgresql-docker-swarmp>mvn clean package -DskipTests
+[INFO] Scanning for projects...
+[INFO]
+[INFO] -------< com.dockerswarmp:spring-boot-postgresql-docker-swarmp >--------
+[INFO] Building  0.0.1-SNAPSHOT
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO]
+[INFO] --- clean:3.4.1:clean (default-clean) @ spring-boot-postgresql-docker-swarmp ---
+[INFO] Deleting C:\Workspace2\docker\spring-boot-postgresql-docker-swarmp\target
+[INFO]
+[INFO] --- resources:3.3.1:resources (default-resources) @ spring-boot-postgresql-docker-swarmp ---
+[INFO] Copying 2 resources from src\main\resources to target\classes
+[INFO] Copying 0 resource from src\main\resources to target\classes
+[INFO]
+[INFO] --- compiler:3.14.1:compile (default-compile) @ spring-boot-postgresql-docker-swarmp ---
+[INFO] Recompiling the module because of changed source code.
+[INFO] Compiling 5 source files with javac [debug parameters release 17] to target\classes
+[INFO]
+[INFO] --- resources:3.3.1:testResources (default-testResources) @ spring-boot-postgresql-docker-swarmp ---
+[INFO] skip non existing resourceDirectory C:\Workspace2\docker\spring-boot-postgresql-docker-swarmp\src\test\resources
+[INFO]
+[INFO] --- compiler:3.14.1:testCompile (default-testCompile) @ spring-boot-postgresql-docker-swarmp ---
+[INFO] Recompiling the module because of changed dependency.
+[INFO] Compiling 1 source file with javac [debug parameters release 17] to target\test-classes
+[INFO]
+[INFO] --- surefire:3.5.5:test (default-test) @ spring-boot-postgresql-docker-swarmp ---
+[INFO] Tests are skipped.
+[INFO]
+[INFO] --- jar:3.4.2:jar (default-jar) @ spring-boot-postgresql-docker-swarmp ---
+[INFO] Building jar: C:\Workspace2\docker\spring-boot-postgresql-docker-swarmp\target\spring-boot-postgresql-docker-swarmp-0.0.1-SNAPSHOT.jar
+[INFO]
+[INFO] --- spring-boot:3.5.13:repackage (repackage) @ spring-boot-postgresql-docker-swarmp ---
+[INFO] Replacing main artifact C:\Workspace2\docker\spring-boot-postgresql-docker-swarmp\target\spring-boot-postgresql-docker-swarmp-0.0.1-SNAPSHOT.jar with repackaged archive, adding nested dependencies in BOOT-INF/.
+[INFO] The original artifact has been renamed to C:\Workspace2\docker\spring-boot-postgresql-docker-swarmp\target\spring-boot-postgresql-docker-swarmp-0.0.1-SNAPSHOT.jar.original
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  5.280 s
+[INFO] Finished at: 2026-04-19T18:15:32+05:30
+[INFO] ------------------------------------------------------------------------
+
+C:\Workspace2\docker\spring-boot-postgresql-docker-swarmp>docker build -t springboot-swarm-app:1.0 .
+[+] Building 8.3s (8/8) FINISHED                                                                                                       docker:desktop-linux
+ => [internal] load build definition from Dockerfile                                                                                                   0.0s
+ => => transferring dockerfile: 370B                                                                                                                   0.0s
+ => [internal] load metadata for docker.io/library/eclipse-temurin:17-jdk-jammy                                                                        1.5s
+ => [internal] load .dockerignore                                                                                                                      0.0s
+ => => transferring context: 2B                                                                                                                        0.0s
+ => [1/3] FROM docker.io/library/eclipse-temurin:17-jdk-jammy@sha256:978ed38b7785312f7761bee5e24cfcd7ac2fe466c5f07acee7b322e0bae6d0ec                  0.0s
+ => => resolve docker.io/library/eclipse-temurin:17-jdk-jammy@sha256:978ed38b7785312f7761bee5e24cfcd7ac2fe466c5f07acee7b322e0bae6d0ec                  0.0s
+ => [internal] load build context                                                                                                                      3.0s
+ => => transferring context: 52.86MB                                                                                                                   3.0s
+ => CACHED [2/3] WORKDIR /app                                                                                                                          0.0s
+ => [3/3] COPY target/*.jar spboot-postgresql-docker-swarmp.jar                                                                                        0.3s
+ => exporting to image                                                                                                                                 3.2s
+ => => exporting layers                                                                                                                                2.5s
+ => => exporting manifest sha256:79e1c022e97fc3a2c18781595822fa69776c7a0a689803d8c14d34faa73974d8                                                      0.0s
+ => => exporting config sha256:40de9e5ce6124fcf64130adccd041ed10fb416db2863370262f3bc6854fb746c                                                        0.0s
+ => => exporting attestation manifest sha256:f28b5910c035ada250e2809cda1091ffce059a6b9765c90ee0ad904f49a24e02                                          0.0s
+ => => exporting manifest list sha256:e6529acf12ed7de7925c552e172e2f8ef17fbc3b0ac2ad38034e17f6bfe2f3c2                                                 0.0s
+ => => naming to docker.io/library/springboot-swarm-app:1.0                                                                                            0.0s
+ => => unpacking to docker.io/library/springboot-swarm-app:1.0                                                                                         0.5s
+
+C:\Workspace2\docker\spring-boot-postgresql-docker-swarmp>docker service rm spboot-postgresql-dswarmp_app
+Error response from daemon: service spboot-postgresql-dswarmp_app not found
+
+C:\Workspace2\docker\spring-boot-postgresql-docker-swarmp>docker stack deploy -c docker-stack.yml spboot-postgresql-dswarmp
+Since --detach=false was not specified, tasks will be created in the background.
+In a future release, --detach=false will become the default.
+Creating service spboot-postgresql-dswarmp_app
+Updating service spboot-postgresql-dswarmp_db (id: bwjititt934ojsbz69ax43vw5)
+
+C:\Workspace2\docker\spring-boot-postgresql-docker-swarmp>docker service logs spboot-postgresql-dswarmp_app
+
+C:\Workspace2\docker\spring-boot-postgresql-docker-swarmp>docker service ls
+ID             NAME                            MODE         REPLICAS   IMAGE                      PORTS
+7pvffis04dmb   spboot-postgresql-dswarmp_app   replicated   3/3        springboot-swarm-app:1.0   *:3458->2426/tcp
+bwjititt934o   spboot-postgresql-dswarmp_db    replicated   1/1        postgres:15                *:5432->5432/tcp
+
+C:\Workspace2\docker\spring-boot-postgresql-docker-swarmp>docker service logs spboot-postgresql-dswarmp_app
+spboot-postgresql-dswarmp_app.1.vs68gxb7snfg@docker-desktop    |
+spboot-postgresql-dswarmp_app.1.vs68gxb7snfg@docker-desktop    |   .   ____          _            __ _ _
+spboot-postgresql-dswarmp_app.1.vs68gxb7snfg@docker-desktop    |  /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+spboot-postgresql-dswarmp_app.1.vs68gxb7snfg@docker-desktop    | ( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+spboot-postgresql-dswarmp_app.1.vs68gxb7snfg@docker-desktop    |  \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+spboot-postgresql-dswarmp_app.1.vs68gxb7snfg@docker-desktop    |   '  |____| .__|_| |_|_| |_\__, | / / / /
+spboot-postgresql-dswarmp_app.1.vs68gxb7snfg@docker-desktop    |  =

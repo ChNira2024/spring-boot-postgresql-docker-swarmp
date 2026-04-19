@@ -1,0 +1,25 @@
+version: "3.8"
+
+services:
+
+  app:
+    image: springboot-swarm-app:1.0
+    ports:
+      - "3458:2426"
+    environment:
+      SPRING_PROFILES_ACTIVE: docker
+    deploy:
+      replicas: 3
+      restart_policy:
+        condition: on-failure
+
+  db:
+    image: postgres:15
+    environment:
+      POSTGRES_DB: docker-databases
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: sisu
+    ports:
+      - "5432:5432"
+    deploy:
+      replicas: 1

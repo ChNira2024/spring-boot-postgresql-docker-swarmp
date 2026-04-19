@@ -1,0 +1,43 @@
+What is Docker Swarm?
+Docker Swarm is a native clustering and orchestration tool for Docker that allows you to manage multiple Docker machines (nodes) as a single system.
+“Swarm = many Docker servers working together as ONE system”
+
+🧠 Why Swarm exists (problem it solves)
+Without Swarm::-
+-----------------
+You run containers on one machine
+If machine fails → app goes down ❌
+Scaling is manual ❌
+
+With Swarm:
+---------------
+Multiple machines (nodes)
+Auto failover
+Auto load balancing
+Easy scaling
+-------------------------------------------------------------------
+How Docker Swarm Works
+Client Request
+      ↓
+Swarm Manager
+      ↓
+Distributes load
+      ↓
+Worker Nodes (Containers run here)
+=================================================================
+1. What Swarm is doing in your case?
+When you stop 1 container in Swarm:
+3 replicas → 2 running → Swarm brings it back to 3
+👉 This is called: ✔ Self-healing (NOT autoscaling)
+
+Swarm ensures:
+Desired state = 3 replicas
+If one fails → it replaces it
+🔥 2. What Swarm DOES NOT do
+
+Swarm does NOT:
+❌ Increase replicas based on CPU load
+❌ Scale based on traffic
+❌ Use advanced scheduling rules
+❌ Do predictive scaling
+❌ Handle complex distributed systems well
