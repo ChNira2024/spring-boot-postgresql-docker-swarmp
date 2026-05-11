@@ -311,3 +311,25 @@ POST: http://localhost:3458/employees
   "salary": 500000
 }
 GET: http://localhost:3458/employees
+
+To stop this docker swarm(who is 3 replica)
+===============================================
+C:\Users\niran>docker service ls
+ID             NAME                            MODE         REPLICAS   IMAGE                      PORTS
+v2el50p0jxoc   spboot-postgresql-dswarmp_app   replicated   3/3        springboot-swarm-app:1.0   *:3458->2426/tcp
+j56zbjc1966e   spboot-postgresql-dswarmp_db    replicated   1/1        postgres:15                *:5432->5432/tcp
+
+C:\Users\niran>docker service rm v2el50p0jxoc
+v2el50p0jxoc
+
+C:\Users\niran>docker service ls
+ID             NAME                           MODE         REPLICAS   IMAGE         PORTS
+j56zbjc1966e   spboot-postgresql-dswarmp_db   replicated   1/1        postgres:15   *:5432->5432/tcp
+
+C:\Users\niran>docker service rm j56zbjc1966e
+j56zbjc1966e
+
+C:\Users\niran>docker service ls
+ID        NAME      MODE      REPLICAS   IMAGE     PORTS
+
+C:\Users\niran>
