@@ -6,8 +6,11 @@ Steps::2 C:\Workspace2\docker\spring-boot-postgresql-docker-swarmp>docker build 
 Steps::3 C:\Workspace2\docker\spring-boot-postgresql-docker-swarmp>docker stack deploy -c docker-stack.yml spboot-postgresql-dswarmp
 Since --detach=false was not specified, tasks will be created in the background.
 In a future release, --detach=false will become the default.
+Creating network spboot-postgresql-dswarmp_default
 Creating service spboot-postgresql-dswarmp_app
-Updating service spboot-postgresql-dswarmp_db (id: bwjititt934ojsbz69ax43vw5)
+Creating service spboot-postgresql-dswarmp_db (id: bwjititt934ojsbz69ax43vw5)
+
+Updating service spboot-postgresql-dswarmp_db 
 
 =>You can check service logs:: C:\Workspace2\docker\spring-boot-postgresql-docker-swarmp>docker service logs spboot-postgresql-dswarmp_app
 
@@ -298,3 +301,13 @@ spboot-postgresql-dswarmp_app.1.vs68gxb7snfg@docker-desktop    | ( ( )\___ | '_ 
 spboot-postgresql-dswarmp_app.1.vs68gxb7snfg@docker-desktop    |  \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
 spboot-postgresql-dswarmp_app.1.vs68gxb7snfg@docker-desktop    |   '  |____| .__|_| |_|_| |_\__, | / / / /
 spboot-postgresql-dswarmp_app.1.vs68gxb7snfg@docker-desktop    |  =
+
+Postman Test::
+===========
+POST: http://localhost:3458/employees
+{
+  "name": "Susanta",
+  "department": "SDE",
+  "salary": 500000
+}
+GET: http://localhost:3458/employees
